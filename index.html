@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form-F8</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+    <div class="main">
+
+        <form action="" method="POST" class="form" id="form-1">
+            <h3 class="heading">Đăng kí thành viên </h3>
+            <p class="desc">Vui lòng nhập đầy đủ các trường!</p>
+
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tên đầy đủ</label>
+                <input id="fullname" name="fullname" type="text" placeholder="VD: Lê Văn Minh" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="text" placeholder="VD: levanminhptit@gmail.com" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <button class="form-submit">Đăng ký</button>
+        </form>
+
+        <form action="" method="POST" class="form" id="form-2">
+            <h3 class="heading">Đăng nhập thành viên</h3>
+            <p class="desc"> Vui lòng nhập đầy đủ các trường!</p>
+
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="text" placeholder="VD: levanminhptit@gmail.com" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                <span class="form-message"></span>
+            </div>
+
+            <button class="form-submit">Đăng nhập</button>
+        </form>
+
+    </div>
+    <script src="./validator.js"></script>
+    <script>
+        Validator({
+            form: '#form-1',
+            errorSelector: '.form-message',
+            rule: [
+                Validator.isRequired("#fullname", "Vui lòng nhập tên đầy đủ"),
+
+                Validator.isRequired("#email", "Vui lòng nhập tên đầy đủ"),
+                Validator.isEmail("#email", "Vui lòng nhập email của bạn"),
+
+                Validator.isRequired("#password", "Vui lòng nhập tên đầy đủ"),
+                Validator.minLength("#password", 6),
+
+                Validator.isRequired("#password_confirmation", "Vui lòng nhập tên đầy đủ"),
+                Validator.isComfirmed("#password_confirmation", function() {
+                    return document.querySelector('#form-1 #password').value;
+                }, "Nhập lại mật khẩu không chính xác"),
+            ],
+            onsubmit: function(data) {
+                // submit gọi API
+                console.log(data)
+            }
+        })
+        Validator({
+            form: '#form-2',
+            errorSelector: '.form-message',
+            rule: [
+
+                Validator.isRequired("#email", "Vui lòng nhập tên đầy đủ"),
+                Validator.isEmail("#email", "Vui lòng nhập email của bạn"),
+
+                Validator.isRequired("#password", "Vui lòng nhập tên đầy đủ"),
+                Validator.minLength("#password", 6),
+            ],
+            onsubmit: function(data) {
+                // submit gọi API
+                console.log(data)
+            }
+        })
+    </script>
+
+</body>
+
+</html>
